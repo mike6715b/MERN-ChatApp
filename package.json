@@ -1,0 +1,11 @@
+{
+  "name": "mern-chatapp",
+  "version": "1.0.0",
+  "description": "Full-stack chat app written with the MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
