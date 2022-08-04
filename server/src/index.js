@@ -12,8 +12,21 @@ import routes from "./routes/auth.route.js";
 const app = express();
 const port = 3000;
 
+var whitelist = ["http://localhost:3000", "http://localhost:3001"];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
+};
+
 app.use(helmet()); // helmet is a security package that helps you secure your Express apps by setting various HTTP headers.
-// app.use(cors); // cors is a middleware that allows cross-origin requests.
+app.use(cors(corsOptions)); // cors is a middleware that allows cross-origin requests.
 app.use(express.json()); //parse JSON bodies
 app.use(cookieParser());
 

@@ -11,7 +11,7 @@ class AuthController {
     //Check if email and password are sent
     if (!req.body.email || !req.body.password) {
       return res.status(400).json({
-        message: "Email and password are required",
+        error: "Email and password are required",
       });
     }
 
@@ -19,7 +19,7 @@ class AuthController {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
-        message: "User does not exist",
+        error: "User does not exist",
       });
     }
 
@@ -27,7 +27,7 @@ class AuthController {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res.status(400).json({
-        message: "Incorrect username or password",
+        error: "Incorrect username or password",
       });
     }
 
@@ -35,18 +35,28 @@ class AuthController {
     const sessionID = uuidv4();
 
     //Save token to redis
-    await sessionRepository
-      .createAndSave({
-        sessionID: sessionID,
-        userID: user._id.toString(),
-        userName: user.name,
-      })
-      .expire(3600);
+    let doc = await sessionRepository.createAndSave({
+      sessionID: sessionID,
+      userID: user._id.toString(),
+      userName: user.name,
+    });
+    await sessionRepository.expire(doc.entityId, 3600);
 
     //Send response
-    return res.status(201).cookie("sessionID", sessionID).json({
-      message: "Logged in successfully",
-    });
+    return res
+      .status(201)
+      .cookie("sessionID", sessionID, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: 3600 * 1000,
+      })
+      .json({
+        message: "Logged in successfully",
+        user: {
+          name: user.name,
+          email: user.email,
+        },
+      });
   };
 
   static register = async (req, res) => {
@@ -55,14 +65,14 @@ class AuthController {
     //Check if email and password are sent
     if (!req.body.name || !req.body.email || !req.body.password) {
       return res.status(400).json({
-        message: "Name, email and password are required",
+        error: "Name, email and password are required",
       });
     }
 
     //Check if email is unique
     if (await User.findOne({ email })) {
       return res.status(400).json({
-        message: "Email already exists",
+        error: "Email already exists",
       });
     }
 
@@ -83,18 +93,28 @@ class AuthController {
     const sessionID = uuidv4();
 
     //Save token to redis
-    await sessionRepository
-      .createAndSave({
-        sessionID: sessionID,
-        userID: user._id.toString(),
-        userName: user.name,
-      })
-      .expire(3600);
+    let doc = await sessionRepository.createAndSave({
+      sessionID: sessionID,
+      userID: user._id.toString(),
+      userName: user.name,
+    });
+    await sessionRepository.expire(doc.entityId, 3600);
 
     //Send response
-    return res.status(201).cookie("sessionID", sessionID).json({
-      message: "User created successfully",
-    });
+    return res
+      .status(201)
+      .cookie("sessionID", sessionID, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: 3600 * 1000,
+      })
+      .json({
+        message: "User created successfully",
+        user: {
+          name: user.name,
+          email: user.email,
+        },
+      });
   };
 }
 
