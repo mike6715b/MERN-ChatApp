@@ -1,8 +1,9 @@
 import { Client } from "redis-om";
+import dotenv from "dotenv";
+dotenv.config();
 
 /* pulls the Redis URL from .env */
-const url =
-  "redis://default:KUtuLfratlBPc0LQgAgrJVsEUeI9HNKF@redis-10948.c300.eu-central-1-1.ec2.cloud.redislabs.com:10948";
+const url = process.env.REDIS_URL;
 
 /* create and open the Redis OM Client */
 const client = await new Client().open(url);

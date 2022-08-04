@@ -28,18 +28,15 @@ var corsOptions = {
 app.use(helmet()); // helmet is a security package that helps you secure your Express apps by setting various HTTP headers.
 app.use(cors(corsOptions)); // cors is a middleware that allows cross-origin requests.
 app.use(express.json()); //parse JSON bodies
-app.use(cookieParser());
+app.use(cookieParser()); //parse cookies
 
 app.use("/api", routes);
 
 mongoose
-  .connect(
-    "mongodb+srv://mongouser:6twwLeQJbYItSUwS@cluster0.sl1fg.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Connected to database!");
   })
