@@ -1,6 +1,3 @@
-// const mongoose = require("mongoose");
-// const uniqueValidator = require("mongoose-unique-validator");
-
 import * as mongoose from "mongoose";
 import schema_pkg from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
