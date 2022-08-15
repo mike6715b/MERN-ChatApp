@@ -1,9 +1,9 @@
-import ProtectedRoutes from "./utils/ProtectedRoutes";
+import ProtectedRoutes from "utils/ProtectedRoutes";
 import { Routes, Route } from "react-router-dom";
-import { SocketContext, socket } from "./context/socket";
+import { SocketContext, socket } from "context/socket";
 
-import Login from "./Login";
-import Chat from "./Chat";
+import Login from "components/Login";
+import Chat from "components/Chat";
 
 function App() {
   return (

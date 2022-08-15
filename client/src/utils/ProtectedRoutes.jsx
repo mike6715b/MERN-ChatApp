@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 const PrivateRoutes = () => {
   const location = useLocation();
   const user = useSelector((state) => state.user);
-  console.log(user);
 
   return user.isAuthenticated ? (
     <Outlet />

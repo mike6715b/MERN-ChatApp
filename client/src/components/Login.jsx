@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./store/reducers/user/user";
+import { setUser } from "store/reducers/user/user";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({ props }) => {
@@ -8,10 +8,10 @@ const Login = ({ props }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    navigate("/register");
-  };
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   navigate("/register");
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
