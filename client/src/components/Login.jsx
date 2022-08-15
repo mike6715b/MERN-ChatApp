@@ -18,7 +18,7 @@ const Login = ({ props }) => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     // Fetch login then set user state
-    fetch("http://localhost:3000/api/login", {
+    fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       credentials: "include",
       headers: {

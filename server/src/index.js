@@ -9,7 +9,10 @@ import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import routes from "./routes/auth.route.js";
+import authRouter from "./routes/auth.route.js";
+import messageRouter from "./routes/message.route.js";
+
+import MessageListener from "./listeners/Message.listener.js";
 
 const originWhitelist = [
   "http://localhost:3000",
@@ -57,7 +60,8 @@ app.use(cors(corsOptions)); // cors is a middleware that allows cross-origin req
 app.use(Express.json()); //parse JSON bodies
 app.use(cookieParser()); //parse cookies
 
-app.use("/api", routes);
+app.use("/api/auth", authRouter);
+app.use("/api/", messageRouter);
 
 mongoose
   .connect(process.env.MONGODB_URL, {
