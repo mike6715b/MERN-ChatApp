@@ -32,7 +32,8 @@ const Login = ({ props }) => {
           console.log(data.error);
         } else {
           dispatch(setUser(data.user));
-          props.history.push("/");
+          // props.history.push("/");
+          navigate(`/chat`);
         }
       })
       .catch((err) => console.log(err));
