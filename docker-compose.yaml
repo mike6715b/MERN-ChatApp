@@ -9,6 +9,8 @@ services:
       - proxy
     ports:
       - "5000:3000"
+    depends_on:
+      - "redis-chatapp"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-backend.entrypoints=http"
