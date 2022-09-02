@@ -33,7 +33,10 @@ const port = process.env.NODE_PORT || 3000;
 const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
-      if (originWhitelist.indexOf(origin) !== -1) {
+      if (process.env.NODE_ENV === "production") {
+        callback(null, true);
+      } else if (originWhitelist.indexOf(origin) !== -1) {
+        console.log(`Origin check from: ${origin}`);
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -50,7 +53,9 @@ const io = new Server(server, {
 
 var corsOptions = {
   origin: function (origin, callback) {
-    if (originWhitelist.indexOf(origin) !== -1) {
+    if (process.env.NODE_ENV === "production") {
+      callback(null, true);
+    } else if (originWhitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
