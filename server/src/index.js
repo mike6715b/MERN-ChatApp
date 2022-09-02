@@ -24,7 +24,6 @@ const originWhitelist = [
 
 if (process.env.NODE_ENV === "production") {
   originWhitelist.push(process.env.CORS_ORIGIN);
-  console.log(`OriginWhitelist: ${originWhitelist}`);
 }
 
 const app = Express();
@@ -33,9 +32,10 @@ const port = process.env.NODE_PORT || 3000;
 const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
-      if (process.env.NODE_ENV === "production") {
+      if (process.env.NODE_ENV !== "production") {
         callback(null, true);
       } else if (originWhitelist.indexOf(origin) !== -1) {
+        // TODO: Remove this log
         console.log(`Origin check from: ${origin}`);
         callback(null, true);
       } else {
@@ -53,7 +53,7 @@ const io = new Server(server, {
 
 var corsOptions = {
   origin: function (origin, callback) {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV !== "production") {
       callback(null, true);
     } else if (originWhitelist.indexOf(origin) !== -1) {
       callback(null, true);
