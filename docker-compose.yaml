@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 services:
   mern-chatapp-backend:
     build: ./server
@@ -80,8 +80,6 @@ networks:
   proxy:
     external: true
   mongodb:
-    name: mongodb
     external: true
   redis-chatapp:
-    name: redis-chatapp
     external: true
