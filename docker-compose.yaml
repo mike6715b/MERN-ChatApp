@@ -11,6 +11,12 @@ services:
       - "5000:3000"
     depends_on:
       - "redis-chatapp"
+    environment:
+      - NODE_PORT=$NODE_PORT
+      - CORS_ORIGIN=$NODE_PORT
+      - NODE_ENV=production
+      - MONGODB_URL=$MONGODB_URL
+      - REDIS_URL=$REDIS_URL
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-backend.entrypoints=http"
@@ -32,6 +38,12 @@ services:
       - proxy
     ports:
       - "5001:80"
+    depends_on:
+      - "mern-chatapp-backend"
+    environment:
+      - REACT_ENV=$REACT_ENV
+      - API_ENDPOINT=$API_ENDPOINT
+      - SOCKET_ENDPOINT=$SOCKET_ENDPOINT
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-frontend.entrypoints=http"
