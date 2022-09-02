@@ -49,6 +49,7 @@ class AuthController {
         httpOnly: true,
         sameSite: "strict",
         maxAge: 3600 * 1000,
+        secure: process.env.NODE_ENV === "production",
       })
       .json({
         message: "Logged in successfully",
@@ -107,6 +108,7 @@ class AuthController {
         httpOnly: true,
         sameSite: "strict",
         maxAge: 3600 * 1000,
+        secure: process.env.NODE_ENV === "production",
       })
       .json({
         message: "User created successfully",
