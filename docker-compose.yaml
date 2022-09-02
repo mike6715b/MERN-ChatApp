@@ -63,6 +63,7 @@ services:
     container_name: mern-chatapp-redis
     environment:
       - REDIS_AOF_ENABLED=no
+      - REDIS_PASSWORD=$REDIS_PASSWORD
     networks:
       - redis-chatapp
     ports:
