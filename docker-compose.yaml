@@ -84,4 +84,4 @@ networks:
     external: true
   redis-chatapp:
     name: redis-chatapp
-    external: false
+    external: true
