@@ -13,7 +13,7 @@ services:
       - "redis-chatapp"
     environment:
       - NODE_PORT=$NODE_PORT
-      - CORS_ORIGIN=$NODE_PORT
+      - CORS_ORIGIN=$CORS_ORIGIN
       - NODE_ENV=production
       - MONGODB_URL=$MONGODB_URL
       - REDIS_URL=$REDIS_URL
