@@ -80,4 +80,6 @@ networks:
   proxy:
     external: true
   mongodb:
+    name: mongodb
+    external: true
   backend:
