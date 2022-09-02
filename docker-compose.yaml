@@ -80,6 +80,8 @@ networks:
   proxy:
     external: true
   mongodb:
+    name: mongodb
     external: true
   redis-chatapp:
+    name: mern-chatapp-redis
     external: true
