@@ -24,6 +24,7 @@ const originWhitelist = [
 
 if (process.env.NODE_ENV === "production") {
   originWhitelist.push(process.env.CORS_ORIGIN);
+  console.log(`OriginWhitelist: ${originWhitelist}`);
 }
 
 const app = Express();
