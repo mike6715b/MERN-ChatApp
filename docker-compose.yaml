@@ -20,11 +20,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-backend.entrypoints=http"
-      - "traefik.http.routers.mern-chatapp-backend.rule=Host(`mern-chatapp.brehak.com`) && Path(`/api`)"
+      - "traefik.http.routers.mern-chatapp-backend.rule=Host(`mern-chatapp.brehak.com`) && PathPrefix(`/api`)"
       - "traefik.http.middlewares.mern-chatapp-backend-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.mern-chatapp-backend.middlewares=mern-chatapp-backend-https-redirect"
       - "traefik.http.routers.mern-chatapp-backend-secure.entrypoints=https"
-      - "traefik.http.routers.mern-chatapp-backend-secure.rule=Host(`mern-chatapp.brehak.com`) && Path(`/api`)"
+      - "traefik.http.routers.mern-chatapp-backend-secure.rule=Host(`mern-chatapp.brehak.com`) && PathPrefix(`/api`)"
       - "traefik.http.routers.mern-chatapp-backend-secure.tls=true"
       - "traefik.http.routers.mern-chatapp-backend-secure.tls.certresolver=cloudflare"
       - "traefik.http.routers.mern-chatapp-backend-secure.service=mern-chatapp-backend"
