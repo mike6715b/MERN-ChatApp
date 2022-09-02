@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 /* pulls the Redis URL from .env */
+console.log({ REDIS_URL: process.env.REDIS_URL });
 const url = process.env.REDIS_URL;
 
 /* create and open the Redis OM Client */
