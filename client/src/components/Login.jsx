@@ -18,14 +18,18 @@ const Login = ({ props }) => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     // Fetch login then set user state
-    fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
+    fetch(
+      `${process.env.API_ENDPOINT}/auth/login` ||
+        "http://localhost:3000/api/auth/login",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {

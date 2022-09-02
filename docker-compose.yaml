@@ -1,0 +1,72 @@
+version: "3"
+services:
+  mern-chatapp-backend:
+    build: ./server
+    container_name: mern-chatapp-backend
+    networks:
+      - mongodb
+      - redis-chatapp
+      - proxy
+    ports:
+      - "5000:3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mern-chatapp-backend.entrypoints=http"
+      - "traefik.http.routers.mern-chatapp-backend.rule=Host(`mern-chatapp.brehak.com`) && Path(`/api`)"
+      - "traefik.http.middlewares.mern-chatapp-backend-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.mern-chatapp-backend.middlewares=mern-chatapp-backend-https-redirect"
+      - "traefik.http.routers.mern-chatapp-backend-secure.entrypoints=https"
+      - "traefik.http.routers.mern-chatapp-backend-secure.rule=Host(`mern-chatapp.brehak.com`) && Path(`/api`)"
+      - "traefik.http.routers.mern-chatapp-backend-secure.tls=true"
+      - "traefik.http.routers.mern-chatapp-backend-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.mern-chatapp-backend-secure.service=mern-chatapp-backend"
+      - "traefik.http.services.mern-chatapp-backend.loadbalancer.server.port=5000"
+      - "traefik.docker.network=proxy"
+
+  mern-chatapp-frontend:
+    build: ./client
+    container_name: mern-chatapp-frontend
+    networks:
+      - proxy
+    ports:
+      - "5001:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mern-chatapp-frontend.entrypoints=http"
+      - "traefik.http.routers.mern-chatapp-frontend.rule=Host(`mern-chatapp.brehak.com`)"
+      - "traefik.http.middlewares.mern-chatapp-frontend-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.mern-chatapp-frontend.middlewares=mern-chatapp-frontend-https-redirect"
+      - "traefik.http.routers.mern-chatapp-frontend-secure.entrypoints=https"
+      - "traefik.http.routers.mern-chatapp-frontend-secure.rule=Host(`mern-chatapp.brehak.com`)"
+      - "traefik.http.routers.mern-chatapp-frontend-secure.tls=true"
+      - "traefik.http.routers.mern-chatapp-frontend-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.mern-chatapp-frontend-secure.service=mern-chatapp-frontend"
+      - "traefik.http.services.mern-chatapp-frontend.loadbalancer.server.port=5001"
+      - "traefik.docker.network=proxy"
+
+  redis-chatapp:
+    image: "redislabs/redismod"
+    container_name: mern-chatapp-redis
+    environment:
+      - REDIS_AOF_ENABLED=no
+    networks:
+      - redis-chatapp
+    ports:
+      - "5002:6379"
+    volumes:
+      - ./docker/redis:/data
+    entrypoint: >
+      redis-server
+        --loadmodule /usr/lib/redis/modules/redisearch.so
+        --loadmodule /usr/lib/redis/modules/rejson.so
+        --appendonly yes
+
+networks:
+  proxy:
+    external: true
+  mongodb:
+    name: mongodb
+    external: true
+  redis-chatapp:
+    name: redis-chatapp
+    external: false

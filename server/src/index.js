@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 import Express from "express";
 import { Server } from "socket.io";
@@ -20,9 +22,13 @@ const originWhitelist = [
   "http://localhost",
 ];
 
+if (process.env.NODE_ENV === "production") {
+  originWhitelist.push(process.env.CORS_ORIGIN);
+}
+
 const app = Express();
 const server = http.createServer(app);
-const port = 3000;
+const port = process.env.NODE_PORT || 3000;
 const io = new Server(server, {
   cors: {
     origin: function (origin, callback) {
@@ -75,13 +81,12 @@ mongoose
     console.log("Connection failed to MongoDB! Err: " + err);
   });
 
-app.get("/api/ping", (req, res) => {
+app.get("/api/ping", (_, res) => {
   console.log("Ping received!");
-  console.log("Cookies: ", req.cookies);
   res.json("pong");
 });
 
-io.on("connection", (socket) => {
+io.of("/socket").on("connection", (socket) => {
   console.log("New client connected");
   // let cook1 = socket.handshake.headers.cookie;
 
