@@ -5,7 +5,7 @@ services:
     container_name: mern-chatapp-backend
     networks:
       - mongodb
-      - redis-chatapp
+      - backend
       - proxy
     ports:
       - "5000:3000"
@@ -65,7 +65,7 @@ services:
       - REDIS_AOF_ENABLED=no
       - REDIS_PASSWORD=$REDIS_PASSWORD
     networks:
-      - redis-chatapp
+      - backend
     ports:
       - "5002:6379"
     volumes:
@@ -80,8 +80,4 @@ networks:
   proxy:
     external: true
   mongodb:
-    name: mongodb
-    external: true
-  redis-chatapp:
-    name: mern-chatapp-redis
-    external: true
+  backend:
