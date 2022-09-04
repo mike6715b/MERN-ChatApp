@@ -4,8 +4,6 @@ import Message from "components/chat/Message";
 import BottomInputSection from "components/chat/BottomInputSection";
 import Sidebar from "components/chat/Sidebar";
 import userIcon from "round_account_circle_black_48dp.png";
-import darkModeIcon from "round_dark_mode_black_24dp.png";
-import lightModeIcon from "round_light_mode_black_24dp.png";
 
 const Chat = () => {
   const socket = useContext(SocketContext);
@@ -17,7 +15,6 @@ const Chat = () => {
   const [lightIconClass, setLightIconClass] = useState("w-5 h-5 hidden");
 
   const [theme, setTheme] = useState(localStorage.theme);
-  const colorTheme = theme === "dark" ? "dark" : "light";
 
   const toggleIconClass = (iconClass) => {
     if (iconClass === "w-5 h-5 hidden") {
@@ -33,20 +30,20 @@ const Chat = () => {
   });
 
   useEffect(() => {
-    if (colorTheme === "dark") {
+    if (theme === "dark") {
       window.document.documentElement.classList.add("dark");
     } else {
       window.document.documentElement.classList.remove("dark");
     }
-  }, [colorTheme]);
+  }, [theme]);
 
   useEffect(() => {
-    if (colorTheme === "dark") {
+    if (theme === "dark") {
       setDarkIconClass(toggleIconClass(lightIconClass));
     } else {
       setLightIconClass(toggleIconClass(darkIconClass));
     }
-  }, [colorTheme]);
+  }, [theme]);
 
   const handleThemeClick = () => {
     // toggle icons inside button
@@ -54,7 +51,7 @@ const Chat = () => {
     setLightIconClass(toggleIconClass(lightIconClass));
     setDarkIconClass(toggleIconClass(darkIconClass));
 
-    if (colorTheme === "dark") {
+    if (theme === "dark") {
       localStorage.setItem("theme", "light");
       setTheme("light");
     } else {
@@ -82,8 +79,6 @@ const Chat = () => {
             themeToggleLightIcon={themeToggleLightIcon}
             darkIconClass={darkIconClass}
             lightIconClass={lightIconClass}
-            lightModeIcon={lightModeIcon}
-            darkModeIcon={darkModeIcon}
             userIcon={userIcon}
           />
           {/* <!-- LEFT SIDEBAR END --> */}

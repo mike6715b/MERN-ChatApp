@@ -1,15 +1,21 @@
 import React from "react";
+import darkModeIcon from "round_dark_mode_black_24dp.png";
+import lightModeIcon from "round_light_mode_white_24dp.png";
+import darkLogoutIcon from "round_logout_black_24dp.png";
+import lightLogoutIcon from "round_logout_white_24dp.png";
 
 const Sidebar = ({
   handleThemeClick,
   themeToggleDarkIcon,
   themeToggleLightIcon,
   darkIconClass,
-  lightModeIcon,
   lightIconClass,
-  darkModeIcon,
   userIcon,
 }) => {
+  const handleLogout = () => {
+    window.location.reload();
+  };
+
   return (
     <aside className="w-full lg:w-2/6 bg-white dark:bg-gray-900 rounded-lg mr-5">
       <div className="max-h-full h-full w-full flex flex-col">
@@ -47,6 +53,21 @@ const Sidebar = ({
                 alt="Moon Icon"
               />
               {/* <!-- MOON ICON END--> */}
+            </button>
+            <button onClick={handleLogout}>
+              {/* <!-- SUN ICON START--> */}
+              <img
+                ref={themeToggleDarkIcon}
+                className={darkIconClass}
+                src={lightLogoutIcon}
+                alt="Light logout button"
+              />
+              <img
+                ref={themeToggleLightIcon}
+                className={lightIconClass}
+                src={darkLogoutIcon}
+                alt="Dark logout button"
+              />
             </button>
           </div>
           {/* <!-- SWITCHER END --> */}
