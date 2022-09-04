@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { SocketContext } from "context/socket";
+import React, { useEffect, useState } from "react";
+// import { SocketContext } from "context/socket";
 import Message from "components/chat/Message";
 import BottomInputSection from "components/chat/BottomInputSection";
 import Sidebar from "components/chat/Sidebar";
@@ -26,9 +26,9 @@ const Chat = () => {
     e.preventDefault();
   };
 
-  const handleMessageReceive = (e) => {
-    e.preventDefault();
-  };
+  // const handleMessageReceive = (e) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <div className="flex flex-1 overflow-hidden h-screen max-w-screen-2xl m-auto">
