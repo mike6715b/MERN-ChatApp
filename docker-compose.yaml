@@ -62,6 +62,8 @@ services:
       - REDIS_PASSWORD=$REDIS_PASSWORD
     networks:
       - backend
+    ports:
+      - "5002:6379"
     volumes:
       - ./docker/redis:/data
     entrypoint: >
