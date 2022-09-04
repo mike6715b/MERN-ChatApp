@@ -35,8 +35,6 @@ const io = new Server(server, {
       if (process.env.NODE_ENV !== "production") {
         callback(null, true);
       } else if (originWhitelist.indexOf(origin) !== -1) {
-        // TODO: Remove this log
-        console.log(`Origin check from: ${origin}`);
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
