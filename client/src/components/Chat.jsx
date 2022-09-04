@@ -5,7 +5,7 @@ import BottomInputSection from "components/chat/BottomInputSection";
 import Sidebar from "components/chat/Sidebar";
 
 const Chat = () => {
-  const socket = useContext(SocketContext);
+  // const socket = useContext(SocketContext);
 
   const [theme, setTheme] = useState(localStorage.theme);
 

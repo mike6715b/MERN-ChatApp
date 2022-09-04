@@ -48,7 +48,7 @@ const User = ({
               {userMessageTimestamp}
             </div>
           </div>
-          <div className="text-gray-400 text-sm dark:text-gray-600 whitespace-nowrap text-ellipsis">
+          <div className="text-gray-400 text-sm dark:text-gray-600 whitespace-nowrap text-ellipsis overflow-hidden max-w-xs">
             {userMessageText()}
           </div>
         </div>

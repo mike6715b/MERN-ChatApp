@@ -16,7 +16,7 @@ const UsersSection = () => {
         {/* Each conversation partner will be listed here */}
         <User
           userName="James Bond"
-          userMessage="Hello there!"
+          userMessage="I'm going to make him an offer he can't refuse. He will be extatic."
           userMessageTimestamp="22:41"
           authorRemote={true}
         />

@@ -30,7 +30,7 @@ const Login = ({ props }) => {
     const password = e.target.password.value;
     // Fetch login then set user state
     fetch(
-      process.env.REACT_ENV == "production"
+      process.env.REACT_ENV === "production"
         ? `api/auth/login`
         : "http://localhost:3000/api/auth/login",
       {

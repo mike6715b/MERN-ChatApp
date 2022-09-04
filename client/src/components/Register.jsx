@@ -45,7 +45,7 @@ const Register = () => {
     }
 
     fetch(
-      process.env.REACT_ENV == "production"
+      process.env.REACT_ENV === "production"
         ? `api/auth/register`
         : "http://localhost:3000/api/auth/register",
       {
