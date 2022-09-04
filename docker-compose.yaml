@@ -36,9 +36,6 @@ services:
       - proxy
     depends_on:
       - "mern-chatapp-backend"
-    environment:
-      - REACT_APP_ENV=$REACT_ENV
-      - REACT_APP_SOCKET_ENDPOINT=$SOCKET_ENDPOINT
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-frontend.entrypoints=http"

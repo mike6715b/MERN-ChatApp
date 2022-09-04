@@ -9,7 +9,7 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-ENV REACT_APP_ENV production
+ENV NODE_ENV production
 
 RUN yarn build
 

@@ -15,7 +15,7 @@ const ThemeSwitcher = ({ handleThemeClick, darkIconClass, lightIconClass }) => {
 
   const handleLogout = () => {
     fetch(
-      process.env.REACT_APP_ENV === "production"
+      process.env.NODE_ENV === "production"
         ? `api/auth/logout`
         : "http://localhost:3000/api/auth/logout",
       {
