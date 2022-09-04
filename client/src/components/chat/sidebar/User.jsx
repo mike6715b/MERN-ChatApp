@@ -18,7 +18,7 @@ const User = ({
 
   return (
     <>
-      <div className="cursor-pointer flex px-10">
+      <div className="cursor-pointer flex px-10 hover:dark:bg-gray-800 hover:bg-gray-200 py-2">
         <div className="mr-4 relative w-12">
           <img className="rounded-full w-full mr-2" src={userIcon} alt="user" />
           <div
@@ -48,7 +48,7 @@ const User = ({
               {userMessageTimestamp}
             </div>
           </div>
-          <div className="text-gray-400 text-sm dark:text-gray-600">
+          <div className="text-gray-400 text-sm dark:text-gray-600 whitespace-nowrap text-ellipsis">
             {userMessageText()}
           </div>
         </div>
