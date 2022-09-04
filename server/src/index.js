@@ -63,6 +63,7 @@ var corsOptions = {
   credentials: true,
   allowedHeaders: "Content-Type, Authorization, X-Requested-With, X-CSRF-Token",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  exposedHeaders: ["set-cookie", "Authorization", "Content-Type"],
 };
 
 app.use(helmet()); // helmet is a security package that helps you secure your Express apps by setting various HTTP headers.
