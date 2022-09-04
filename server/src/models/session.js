@@ -9,6 +9,7 @@ const sessionSchema = new Schema(
     sessionID: { type: "string" },
     userID: { type: "string" },
     userName: { type: "string" },
+    userEmail: { type: "string" },
   },
   { dataStructure: "JSON" }
 );
