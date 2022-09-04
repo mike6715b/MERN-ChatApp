@@ -33,7 +33,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          toast.error(data.error);
+          return;
         } else {
           dispatch(setUser(data.user));
           // props.history.push("/");
