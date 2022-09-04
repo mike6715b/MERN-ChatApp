@@ -37,9 +37,8 @@ services:
     depends_on:
       - "mern-chatapp-backend"
     environment:
-      - REACT_ENV=$REACT_ENV
-      - API_ENDPOINT=$API_ENDPOINT
-      - SOCKET_ENDPOINT=$SOCKET_ENDPOINT
+      - REACT_APP_ENV=$REACT_ENV
+      - REACT_APP_SOCKET_ENDPOINT=$SOCKET_ENDPOINT
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mern-chatapp-frontend.entrypoints=http"

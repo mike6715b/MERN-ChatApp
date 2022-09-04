@@ -2,7 +2,7 @@ import React from "react";
 import socketio from "socket.io-client";
 
 const SOCKET_URL =
-  process.env.SOCKET_ENDPOINT || "http://localhost:3000/socket";
+  process.env.REACT_APP_SOCKET_ENDPOINT || "http://localhost:3000/socket";
 
 export const socket = socketio(SOCKET_URL, {
   withCredentials: true,
