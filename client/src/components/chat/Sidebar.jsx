@@ -1,8 +1,13 @@
 import React from "react";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import darkModeIcon from "round_dark_mode_black_24dp.png";
 import lightModeIcon from "round_light_mode_white_24dp.png";
 import darkLogoutIcon from "round_logout_black_24dp.png";
 import lightLogoutIcon from "round_logout_white_24dp.png";
+import { clearUser } from "store/reducers/user/user";
 
 const Sidebar = ({
   handleThemeClick,
@@ -10,8 +15,38 @@ const Sidebar = ({
   lightIconClass,
   userIcon,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    window.location.reload();
+    fetch(
+      process.env.REACT_ENV === "production"
+        ? `api/auth/logout`
+        : "http://localhost:3000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          toast.info(data.message);
+          dispatch(clearUser());
+          navigate(`/chat`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong");
+      });
+
+    // window.location.reload();
   };
 
   return (

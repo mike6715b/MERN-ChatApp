@@ -170,6 +170,37 @@ class AuthController {
       },
     });
   };
+
+  static logout = async (req, res) => {
+    //Check if sessionID is sent
+    if (!req.cookies.sessionID) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Get sessions from redis
+    const session = await sessionRepository
+      .search()
+      .where("sessionID")
+      .is.equalTo(req.cookies.sessionID)
+      .return.all();
+
+    //Check if session exists
+    if (session.length === 0) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Delete session from redis
+    await sessionRepository.remove(session[0].entityId);
+
+    //Send response
+    return res.status(200).json({
+      message: "Logged out successfully",
+    });
+  };
 }
 
 export default AuthController;
