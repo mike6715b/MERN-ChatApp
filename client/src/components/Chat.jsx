@@ -8,9 +8,6 @@ import userIcon from "round_account_circle_black_48dp.png";
 const Chat = () => {
   const socket = useContext(SocketContext);
 
-  const themeToggleDarkIcon = useRef(null);
-  const themeToggleLightIcon = useRef(null);
-
   const [darkIconClass, setDarkIconClass] = useState("w-5 h-5 hidden");
   const [lightIconClass, setLightIconClass] = useState("w-5 h-5 hidden");
 
@@ -75,8 +72,6 @@ const Chat = () => {
           {/* <!-- LEFT SIDEBAR START --> */}
           <Sidebar
             handleThemeClick={handleThemeClick}
-            themeToggleDarkIcon={themeToggleDarkIcon}
-            themeToggleLightIcon={themeToggleLightIcon}
             darkIconClass={darkIconClass}
             lightIconClass={lightIconClass}
             userIcon={userIcon}

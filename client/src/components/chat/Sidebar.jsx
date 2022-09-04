@@ -6,8 +6,6 @@ import lightLogoutIcon from "round_logout_white_24dp.png";
 
 const Sidebar = ({
   handleThemeClick,
-  themeToggleDarkIcon,
-  themeToggleLightIcon,
   darkIconClass,
   lightIconClass,
   userIcon,
@@ -34,7 +32,6 @@ const Sidebar = ({
               {/* <!-- SUN ICON START--> */}
               <img
                 id="theme-toggle-dark-icon"
-                ref={themeToggleDarkIcon}
                 className={darkIconClass}
                 // fill="currentColor"
                 // viewBox="0 0 20 20"
@@ -45,7 +42,6 @@ const Sidebar = ({
               {/* <!-- MOON ICON START--> */}
               <img
                 id="theme-toggle-light-icon"
-                ref={themeToggleLightIcon}
                 className={lightIconClass}
                 // fill="currentColor"
                 // viewBox="0 0 20 20"
@@ -57,13 +53,11 @@ const Sidebar = ({
             <button onClick={handleLogout}>
               {/* <!-- SUN ICON START--> */}
               <img
-                ref={themeToggleDarkIcon}
                 className={darkIconClass}
                 src={lightLogoutIcon}
                 alt="Light logout button"
               />
               <img
-                ref={themeToggleLightIcon}
                 className={lightIconClass}
                 src={darkLogoutIcon}
                 alt="Dark logout button"
