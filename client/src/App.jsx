@@ -19,7 +19,7 @@ function App() {
   // Attempt reauth on page load
   useEffect(() => {
     fetch(
-      process.env.REACT_ENV == "production"
+      process.env.NODE_ENV === "production"
         ? `api/auth/reauth`
         : "http://localhost:3000/api/auth/reauth",
       {
