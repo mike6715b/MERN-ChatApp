@@ -9,11 +9,10 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
+ENV REACT_ENV production
+
 RUN yarn build
 
-# ENV REACT_ENV production
-# ENV API_ENDPOINT https://mern-chatapp.brehak.com/api
-# ENV SOCKET_ENDPOINT https://mern-chatapp.brehak.com/socket
 
 #######################################################
 
