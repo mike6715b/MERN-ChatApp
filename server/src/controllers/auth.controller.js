@@ -39,6 +39,7 @@ class AuthController {
       sessionID: sessionID,
       userID: user._id.toString(),
       userName: user.name,
+      userEmail: user.email,
     });
     await sessionRepository.expire(doc.entityId, 3600);
 
@@ -98,6 +99,7 @@ class AuthController {
       sessionID: sessionID,
       userID: user._id.toString(),
       userName: user.name,
+      userEmail: user.email,
     });
     await sessionRepository.expire(doc.entityId, 3600);
 
@@ -117,6 +119,56 @@ class AuthController {
           email: user.email,
         },
       });
+  };
+
+  static reAuth = async (req, res) => {
+    //Check if sessionID is sent
+    if (!req.cookies.sessionID) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Get sessions from redis
+    const session = await sessionRepository
+      .search()
+      .where("sessionID")
+      .is.equalTo(req.cookies.sessionID)
+      .return.all();
+
+    //Check if session exists
+    if (session.length === 0) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Check if session is expired
+    if (session[0].expired) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Get user from database and check if user exists
+    const user = await User.findById(session[0].userID);
+    if (!user) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    //Extend session expiration
+    await sessionRepository.expire(session.entityId, 3600);
+
+    //Send response
+    return res.status(200).json({
+      message: "Reauthenticated successfully",
+      user: {
+        name: session[0].userName,
+        email: session[0].userEmail,
+      },
+    });
   };
 }
 
